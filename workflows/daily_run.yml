@@ -1,0 +1,34 @@
+name: Tägliche Ausführung – News Dow Study
+
+on:
+  schedule:
+    # Führt den Workflow täglich um Mitternacht UTC aus.
+    - cron: "0 0 * * *"
+  workflow_dispatch:  # Ermöglicht manuelle Auslösung über die GitHub-Oberfläche.
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Repository auschecken
+        uses: actions/checkout@v3
+
+      - name: Python-Umgebung einrichten
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Abhängigkeiten installieren
+        run: |
+          pip install feedparser requests beautifulsoup4 pandas yfinance pandas-profiling
+
+      - name: Skript ausführen
+        run: python news_dow_study.py
+
+      - name: Report als Artifact hochladen
+        if: success()
+        uses: actions/upload-artifact@v3
+        with:
+          name: NewsDowStudyReport
+          path: news_dow_study_report.html
