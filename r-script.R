@@ -1,4 +1,3 @@
-```r
 # Einfaches R-Skript für GitHub Actions
 
 # Print Informationen zur R-Version
@@ -29,5 +28,3 @@ ergebnisse <- data.frame(
 # Speichere die Ergebnisse
 write.csv(ergebnisse, "ergebnisse.csv", row.names = FALSE)
 print("Ergebnisse wurden in 'ergebnisse.csv' gespeichert.")
-```
-
