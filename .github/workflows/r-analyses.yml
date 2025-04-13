@@ -35,7 +35,7 @@ jobs:
       
       - name: Run R script
         run: |
-          Rscript r-script.R
+          Rscript r-script-1.R
           
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
