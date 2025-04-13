@@ -1,4 +1,4 @@
-# .github/workflows/r_script.yml
+# .github/workflows/r-analyses.yml
 name: R Script Workflow
 
 on:
@@ -19,11 +19,17 @@ jobs:
       - name: Install system dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y libcurl4-openssl-dev libssl-dev libxml2-dev libfontconfig1-dev libharfbuzz-dev libfribidi-dev
+          sudo apt-get install -y \
+            libcurl4-openssl-dev \
+            libssl-dev \
+            libxml2-dev \
+            libfontconfig1-dev \
+            libharfbuzz-dev \
+            libfribidi-dev
           
       - name: Install R packages
         run: |
-          R -e "install.packages('tidyverse', repos='http://cran.rstudio.com/')"
+          R -e "install.packages('tidyverse', repos='https://cran.rstudio.com/')"
 
       - name: Run R script
         run: |
