@@ -1,11 +1,10 @@
 # Einfaches R-Skript für GitHub Actions mit Tidyverse
 
 # Installiere Abhängigkeiten
-install.packages(c("curl", "systemfonts", "textshaping", "httr", "gargle", "ragg", "googledrive", "rvest", "googlesheets4"))
-install.packages("tidyverse")
+install.packages("ggplot2")
 
 # Lade Bibliotheken
-library(tidyverse) # Enthält ggplot2, dplyr und andere nützliche Pakete
+library(ggplot2) # Enthält ggplot2, dplyr und andere nützliche Pakete
 
 # Print Informationen zur R-Version
 print("R-Version Information:")
