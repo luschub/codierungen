@@ -14,8 +14,8 @@ print(R.version)
 
 # Erstelle einen einfachen Datensatz
 daten <- tibble(
-  x = 1:10,
-  y = rnorm(10, mean = 5, sd = 1.5)
+  x = 1:5000,
+  y = rnorm(5000, mean = 5, sd = 1.4)
 )
 
 # Berechne einige Statistiken
