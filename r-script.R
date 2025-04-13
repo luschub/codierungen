@@ -1,6 +1,7 @@
 # Einfaches R-Skript für GitHub Actions mit Tidyverse
 
-
+# Installiere Abhängigkeiten
+install.packages(c("curl", "systemfonts", "textshaping", "httr", "gargle", "ragg", "googledrive", "rvest", "googlesheets4"))
 install.packages("tidyverse")
 
 # Lade Bibliotheken
