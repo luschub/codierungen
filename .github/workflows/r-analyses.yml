@@ -1,11 +1,9 @@
 # .github/workflows/r-analyses.yml
 name: R Script Workflow
-
 on:
   push:
     branches:
       - main
-
 jobs:
   r-script:
     runs-on: ubuntu-latest
@@ -15,7 +13,7 @@ jobs:
         
       - name: Set up R environment
         uses: r-lib/actions/setup-r@v2
-
+        
       - name: Install system dependencies
         run: |
           sudo apt-get update
@@ -25,12 +23,25 @@ jobs:
             libxml2-dev \
             libfontconfig1-dev \
             libharfbuzz-dev \
-            libfribidi-dev
+            libfribidi-dev \
+            libcairo2-dev \
+            libpng-dev \
+            libtiff5-dev \
+            libjpeg-dev
           
       - name: Install R packages
         run: |
-          R -e "install.packages('tidyverse', repos='https://cran.rstudio.com/')"
-
+          R -e "install.packages(c('tidyverse', 'ragg'), repos='https://cran.rstudio.com/')"
+      
       - name: Run R script
         run: |
           Rscript r-script.R
+          
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: r-analysis-results
+          path: |
+            *.png
+            *.csv
+            *.txt
