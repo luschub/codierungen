@@ -1,5 +1,8 @@
 # Einfaches R-Skript für GitHub Actions mit Tidyverse
 
+
+install.packages("tidyverse")
+
 # Lade Bibliotheken
 library(tidyverse) # Enthält ggplot2, dplyr und andere nützliche Pakete
 
