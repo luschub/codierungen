@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     
     - name: R installieren
       uses: r-lib/actions/setup-r@v2
@@ -23,7 +23,7 @@ jobs:
       run: Rscript r-script.R
     
     - name: Ergebnisse speichern
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: Analyse-Ergebnisse
         path: ergebnisse.csv
