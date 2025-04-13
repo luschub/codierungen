@@ -1,10 +1,12 @@
 # Einfaches R-Skript für GitHub Actions mit Tidyverse
-
 # Installiere Abhängigkeiten
-install.packages("ggplot2")
+install.packages(c("ggplot2", "dplyr", "tidyr", "readr", "tibble"))
 
 # Lade Bibliotheken
-library(ggplot2) # Enthält ggplot2, dplyr und andere nützliche Pakete
+library(ggplot2)
+library(dplyr)
+library(readr)
+library(tibble)
 
 # Print Informationen zur R-Version
 print("R-Version Information:")
@@ -43,24 +45,26 @@ write_csv(ergebnisse, "ergebnisse.csv")
 print("Ergebnisse wurden in 'ergebnisse.csv' gespeichert.")
 
 # Visualisierung der Daten und des Modells
-daten %>%
+p1 <- daten %>%
   ggplot(aes(x = x, y = y)) +
   geom_point() +
   geom_line(data = ergebnisse, aes(x = x_wert, y = vorhersage), color = "blue") +
   ggtitle("Lineares Modell: Daten und Vorhersagen") +
-  theme_minimal() +
-  ggsave("modell_visualisierung.png")
+  theme_minimal()
+
+ggsave("modell_visualisierung.png", plot = p1)
 print("Die Visualisierung wurde als 'modell_visualisierung.png' gespeichert.")
 
 # Residuenanalyse
 residuen <- resid(modell)
-tibble(x = daten$x, residuen = residuen) %>%
+p2 <- tibble(x = daten$x, residuen = residuen) %>%
   ggplot(aes(x = x, y = residuen)) +
   geom_point() +
   geom_hline(yintercept = 0, color = "red") +
   ggtitle("Residuenplot") +
-  theme_minimal() +
-  ggsave("residuen_visualisierung.png")
+  theme_minimal()
+
+ggsave("residuen_visualisierung.png", plot = p2)
 print("Residuen-Visualisierung wurde als 'residuen_visualisierung.png' gespeichert.")
 
 # Automatische Überprüfung der Modellgüte
@@ -78,6 +82,7 @@ print(summary(modell_erweitert))
 # Modellzusammenfassung speichern
 sink("modell_zusammenfassung.txt")
 print(summary(modell))
+print(summary(modell_erweitert))
 sink()
 
 # Hinweis
