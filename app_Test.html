@@ -1,356 +1,610 @@
 <!DOCTYPE html>
-
 <html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Multiple Choice Test</title>
+    <title>Sicherheits-Quiz</title>
     <style>
+        :root {
+            --primary-color: #667eea;
+            --primary-dark: #5a67d8;
+            --secondary-color: #764ba2;
+            --text-color: #2d3748;
+            --light-bg: #f8f9fa;
+            --border-color: #e2e8f0;
+            --success-color: #38a169;
+            --success-light: #c6f6d5;
+            --error-color: #e53e3e;
+            --error-light: #fed7d7;
+            --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 10px 15px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 25px rgba(0, 0, 0, 0.1);
+            --border-radius: 10px;
+            --transition: all 0.3s ease;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
             min-height: 100vh;
-            color: #333;
+            color: var(--text-color);
+            line-height: 1.6;
         }
 
-```
-    .container {
-        background: white;
-        border-radius: 15px;
-        padding: 30px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    }
-    
-    h1 {
-        text-align: center;
-        color: #4a5568;
-        margin-bottom: 30px;
-        font-size: 2.5em;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-    }
-    
-    .question {
-        margin-bottom: 25px;
-        padding: 20px;
-        background: #f8f9fa;
-        border-radius: 10px;
-        border-left: 4px solid #667eea;
-    }
-    
-    .question h3 {
-        margin: 0 0 15px 0;
-        color: #2d3748;
-        font-size: 1.2em;
-    }
-    
-    .options {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-    }
-    
-    .option {
-        display: flex;
-        align-items: center;
-        padding: 12px;
-        background: white;
-        border-radius: 8px;
-        border: 2px solid #e2e8f0;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
-    
-    .option:hover {
-        border-color: #667eea;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
-    }
-    
-    .option input[type="radio"] {
-        margin-right: 10px;
-        transform: scale(1.3);
-    }
-    
-    .option.correct {
-        background: #c6f6d5;
-        border-color: #38a169;
-        color: #2f855a;
-    }
-    
-    .option.incorrect {
-        background: #fed7d7;
-        border-color: #e53e3e;
-        color: #c53030;
-    }
-    
-    .option.correct::after {
-        content: "✓";
-        margin-left: auto;
-        font-weight: bold;
-        color: #38a169;
-    }
-    
-    .option.incorrect::after {
-        content: "✗";
-        margin-left: auto;
-        font-weight: bold;
-        color: #e53e3e;
-    }
-    
-    .buttons {
-        text-align: center;
-        margin: 30px 0;
-    }
-    
-    button {
-        background: linear-gradient(45deg, #667eea, #764ba2);
-        color: white;
-        border: none;
-        padding: 15px 30px;
-        font-size: 16px;
-        border-radius: 25px;
-        cursor: pointer;
-        margin: 0 10px;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-    }
-    
-    button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
-    }
-    
-    button:active {
-        transform: translateY(0);
-    }
-    
-    .result {
-        text-align: center;
-        margin-top: 30px;
-        padding: 20px;
-        border-radius: 10px;
-        font-size: 1.2em;
-        font-weight: bold;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    }
-    
-    .result.show {
-        animation: fadeIn 0.5s ease-in;
-    }
-    
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-    
-    .hidden {
-        display: none;
-    }
-    
-    .explanation {
-        margin-top: 15px;
-        padding: 15px;
-        background: #e2e8f0;
-        border-radius: 8px;
-        font-size: 0.9em;
-        color: #4a5568;
-        border-left: 4px solid #667eea;
-    }
-</style>
-```
+        .container {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow-md);
+        }
 
+        h1 {
+            text-align: center;
+            color: var(--text-color);
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .question {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: var(--light-bg);
+            border-radius: var(--border-radius);
+            border-left: 4px solid var(--primary-color);
+            transition: var(--transition);
+        }
+
+        .question h3 {
+            margin: 0 0 15px 0;
+            color: var(--text-color);
+            font-size: 1.2em;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            background: white;
+            border-radius: 8px;
+            border: 2px solid var(--border-color);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .option:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .option:focus-within {
+            outline: 2px solid var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .option input[type="radio"] {
+            margin-right: 10px;
+            transform: scale(1.3);
+        }
+
+        .option.correct {
+            background: var(--success-light);
+            border-color: var(--success-color);
+            color: var(--success-color);
+        }
+
+        .option.incorrect {
+            background: var(--error-light);
+            border-color: var(--error-color);
+            color: var(--error-color);
+        }
+
+        .option.correct::after {
+            content: "✓";
+            margin-left: auto;
+            font-weight: bold;
+            color: var(--success-color);
+        }
+
+        .option.incorrect::after {
+            content: "✗";
+            margin-left: auto;
+            font-weight: bold;
+            color: var(--error-color);
+        }
+
+        .buttons {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        button {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            border-radius: 25px;
+            cursor: pointer;
+            margin: 0 10px;
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        button:focus {
+            outline: 3px solid rgba(112, 116, 133, 0.5);
+            outline-offset: 2px;
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .result {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            font-size: 1.2em;
+            font-weight: bold;
+            box-shadow: var(--shadow-sm);
+            opacity: 0;
+            height: 0;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .result.show {
+            opacity: 1;
+            height: auto;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .result.correct {
+            background-color: var(--success-light);
+            color: var(--success-color);
+        }
+
+        .result.incorrect {
+            background-color: var(--error-light);
+            color: var(--error-color);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .explanation {
+            margin-top: 15px;
+            padding: 15px;
+            background: var(--border-color);
+            border-radius: 8px;
+            font-size: 0.9em;
+            color: var(--text-color);
+            border-left: 4px solid var(--primary-color);
+            transform: scaleY(0);
+            transform-origin: top;
+            transition: transform 0.3s ease;
+            height: 0;
+            overflow: hidden;
+        }
+
+        .explanation.show {
+            transform: scaleY(1);
+            height: auto;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+
+            .buttons {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            button {
+                margin: 5px 0;
+                width: 100%;
+            }
+        }
+
+        .progress {
+            height: 8px;
+            background: var(--border-color);
+            margin-bottom: 20px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            width: 0;
+            transition: width 0.5s ease;
+        }
+
+        .question-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .nav-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 14px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .nav-btn:disabled {
+            background: var(--border-color);
+            cursor: not-allowed;
+        }
+
+        .nav-btn i.arrow {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+            margin: 0 5px;
+        }
+
+        .nav-btn.prev i.arrow {
+            transform: rotate(225deg);
+        }
+
+        .nav-btn.next i.arrow {
+            transform: rotate(45deg);
+        }
+
+        .question-counter {
+            font-size: 1em;
+            color: var(--text-color);
+        }
+
+        @media (max-width: 768px) {
+            .option {
+                padding: 16px;
+                margin-bottom: 12px;
+            }
+            
+            .option input[type="radio"] {
+                transform: scale(1.5);
+                margin-right: 15px;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <h1>📚 Multiple Choice Test</h1>
+        <h1>📚 Sicherheits-Quiz</h1>
+        
+        <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+            <div class="progress-bar"></div>
+        </div>
 
-```
-    <div id="quiz-container">
-        <!-- Frage 1 -->
-        <div class="question">
-            <h3>1. Was ist die Hauptstadt von Deutschland?</h3>
-            <div class="options">
-                <label class="option">
-                    <input type="radio" name="q1" value="a">
-                    München
-                </label>
-                <label class="option">
-                    <input type="radio" name="q1" value="b">
-                    Berlin
-                </label>
-                <label class="option">
-                    <input type="radio" name="q1" value="c">
-                    Hamburg
-                </label>
-                <label class="option">
-                    <input type="radio" name="q1" value="d">
-                    Frankfurt
-                </label>
+        <div id="quiz-container">
+            <!-- Frage 1 -->
+            <div class="question" data-question="q1">
+                <h3>1. Was ist die Hauptstadt von Deutschland?</h3>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q1" value="a" aria-label="Option A: München">
+                        München
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q1" value="b" aria-label="Option B: Berlin">
+                        Berlin
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q1" value="c" aria-label="Option C: Hamburg">
+                        Hamburg
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q1" value="d" aria-label="Option D: Frankfurt">
+                        Frankfurt
+                    </label>
+                </div>
+                <div class="explanation">
+                    <strong>Erklärung:</strong> Berlin ist seit 1990 die Hauptstadt der Bundesrepublik Deutschland.
+                </div>
             </div>
-            <div class="explanation hidden">
-                <strong>Erklärung:</strong> Berlin ist seit 1990 die Hauptstadt der Bundesrepublik Deutschland.
-            </div>
-        </div>
-        
-        <!-- Frage 2 -->
-        <div class="question">
-            <h3>2. Welche Programmiersprache wird hauptsächlich für Webentwicklung verwendet?</h3>
-            <div class="options">
-                <label class="option">
-                    <input type="radio" name="q2" value="a">
-                    Python
-                </label>
-                <label class="option">
-                    <input type="radio" name="q2" value="b">
-                    JavaScript
-                </label>
-                <label class="option">
-                    <input type="radio" name="q2" value="c">
-                    C++
-                </label>
-                <label class="option">
-                    <input type="radio" name="q2" value="d">
-                    Java
-                </label>
-            </div>
-            <div class="explanation hidden">
-                <strong>Erklärung:</strong> JavaScript ist die Standard-Programmiersprache für clientseitige Webentwicklung.
-            </div>
-        </div>
-        
-        <!-- Frage 3 -->
-        <div class="question">
-            <h3>3. Wie viele Kontinente gibt es?</h3>
-            <div class="options">
-                <label class="option">
-                    <input type="radio" name="q3" value="a">
-                    5
-                </label>
-                <label class="option">
-                    <input type="radio" name="q3" value="b">
-                    6
-                </label>
-                <label class="option">
-                    <input type="radio" name="q3" value="c">
-                    7
-                </label>
-                <label class="option">
-                    <input type="radio" name="q3" value="d">
-                    8
-                </label>
-            </div>
-            <div class="explanation hidden">
-                <strong>Erklärung:</strong> Es gibt 7 Kontinente: Europa, Asien, Afrika, Nordamerika, Südamerika, Australien/Ozeanien und Antarktis.
-            </div>
-        </div>
-    </div>
-    
-    <div class="buttons">
-        <button onclick="checkAnswers()">Antworten überprüfen</button>
-        <button onclick="resetQuiz()">Zurücksetzen</button>
-    </div>
-    
-    <div id="result" class="result hidden"></div>
-</div>
-
-<script>
-    // Richtige Antworten definieren
-    const correctAnswers = {
-        q1: 'b', // Berlin
-        q2: 'b', // JavaScript
-        q3: 'c'  // 7 Kontinente
-    };
-    
-    function checkAnswers() {
-        let score = 0;
-        let total = Object.keys(correctAnswers).length;
-        
-        // Alle Fragen durchgehen
-        Object.keys(correctAnswers).forEach(questionName => {
-            const selectedAnswer = document.querySelector(`input[name="${questionName}"]:checked`);
-            const allOptions = document.querySelectorAll(`input[name="${questionName}"]`);
             
-            // Alle Optionen der aktuellen Frage
-            allOptions.forEach(option => {
-                const optionElement = option.parentElement;
-                optionElement.classList.remove('correct', 'incorrect');
-                
-                // Richtige Antwort markieren
-                if (option.value === correctAnswers[questionName]) {
-                    optionElement.classList.add('correct');
-                }
-                
-                // Falsche Antwort markieren (wenn ausgewählt)
-                if (selectedAnswer && option === selectedAnswer && option.value !== correctAnswers[questionName]) {
-                    optionElement.classList.add('incorrect');
-                }
+            <!-- Frage 2 -->
+            <div class="question" data-question="q2">
+                <h3>2. Welche Programmiersprache wird hauptsächlich für Webentwicklung verwendet?</h3>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q2" value="a" aria-label="Option A: Python">
+                        Python
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q2" value="b" aria-label="Option B: JavaScript">
+                        JavaScript
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q2" value="c" aria-label="Option C: C++">
+                        C++
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q2" value="d" aria-label="Option D: Java">
+                        Java
+                    </label>
+                </div>
+                <div class="explanation">
+                    <strong>Erklärung:</strong> JavaScript ist die Standard-Programmiersprache für clientseitige Webentwicklung.
+                </div>
+            </div>
+            
+            <!-- Frage 3 -->
+            <div class="question" data-question="q3">
+                <h3>3. Wie viele Kontinente gibt es?</h3>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q3" value="a" aria-label="Option A: 5">
+                        5
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q3" value="b" aria-label="Option B: 6">
+                        6
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q3" value="c" aria-label="Option C: 7">
+                        7
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q3" value="d" aria-label="Option D: 8">
+                        8
+                    </label>
+                </div>
+                <div class="explanation">
+                    <strong>Erklärung:</strong> Es gibt 7 Kontinente: Europa, Asien, Afrika, Nordamerika, Südamerika, Australien/Ozeanien und Antarktis.
+                </div>
+            </div>
+        </div>
+
+        <div class="question-navigation">
+            <button class="nav-btn prev" disabled><i class="arrow left"></i> Zurück</button>
+            <span class="question-counter">Frage 1 von 3</span>
+            <button class="nav-btn next">Weiter <i class="arrow right"></i></button>
+        </div>
+        
+        <div class="buttons">
+            <button id="check-answers-btn" aria-label="Antworten überprüfen">Antworten überprüfen</button>
+            <button id="reset-quiz-btn" aria-label="Quiz zurücksetzen">Zurücksetzen</button>
+            <button id="theme-toggle" aria-label="Theme umschalten">Theme umschalten</button>
+        </div>
+        
+        <div id="result" class="result" aria-live="polite"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Richtige Antworten definieren
+            const correctAnswers = {
+                q1: 'b', // Berlin
+                q2: 'b', // JavaScript
+                q3: 'c'  // 7 Kontinente
+            };
+
+            // DOM-Elemente
+            const checkBtn = document.getElementById('check-answers-btn');
+            const resetBtn = document.getElementById('reset-quiz-btn');
+            const resultDiv = document.getElementById('result');
+            const progressBar = document.querySelector('.progress-bar');
+            const questions = document.querySelectorAll('.question');
+            
+            // Fortschritt aktualisieren wenn eine Antwort ausgewählt wird
+            document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                radio.addEventListener('change', updateProgress);
             });
             
-            // Erklärung anzeigen
-            const explanation = document.querySelector(`input[name="${questionName}"]`).closest('.question').querySelector('.explanation');
-            explanation.classList.remove('hidden');
-            
-            // Punkte zählen
-            if (selectedAnswer && selectedAnswer.value === correctAnswers[questionName]) {
-                score++;
+            // Funktion zum Aktualisieren des Fortschrittsbalkens
+            function updateProgress() {
+                const totalQuestions = Object.keys(correctAnswers).length;
+                const answeredQuestions = document.querySelectorAll('input[type="radio"]:checked').length;
+                const progress = (answeredQuestions / totalQuestions) * 100;
+                
+                progressBar.style.width = `${progress}%`;
+                progressBar.parentElement.setAttribute('aria-valuenow', progress);
             }
-        });
-        
-        // Ergebnis anzeigen
-        showResult(score, total);
-    }
-    
-    function showResult(score, total) {
-        const resultDiv = document.getElementById('result');
-        const percentage = Math.round((score / total) * 100);
-        
-        let message = `Du hast ${score} von ${total} Fragen richtig beantwortet (${percentage}%)`;
-        let resultClass = '';
-        
-        if (percentage >= 80) {
-            message += " - Ausgezeichnet! 🎉";
-            resultClass = 'correct';
-        } else if (percentage >= 60) {
-            message += " - Gut gemacht! 👍";
-            resultClass = 'correct';
-        } else {
-            message += " - Noch etwas Übung nötig! 💪";
-            resultClass = 'incorrect';
-        }
-        
-        resultDiv.textContent = message;
-        resultDiv.className = `result show ${resultClass}`;
-        resultDiv.classList.remove('hidden');
-    }
-    
-    function resetQuiz() {
-        // Alle Radio-Buttons zurücksetzen
-        const allInputs = document.querySelectorAll('input[type="radio"]');
-        allInputs.forEach(input => {
-            input.checked = false;
-        });
-        
-        // Alle Markierungen entfernen
-        const allOptions = document.querySelectorAll('.option');
-        allOptions.forEach(option => {
-            option.classList.remove('correct', 'incorrect');
-        });
-        
-        // Erklärungen verstecken
-        const explanations = document.querySelectorAll('.explanation');
-        explanations.forEach(explanation => {
-            explanation.classList.add('hidden');
-        });
-        
-        // Ergebnis verstecken
-        const resultDiv = document.getElementById('result');
-        resultDiv.classList.add('hidden');
-    }
-</script>
-```
+            
+            // Event Listeners für Buttons
+            checkBtn.addEventListener('click', checkAnswers);
+            resetBtn.addEventListener('click', resetQuiz);
+            
+            function checkAnswers() {
+                let score = 0;
+                let total = Object.keys(correctAnswers).length;
+                let allAnswered = true;
+                
+                // Alle Fragen durchgehen
+                Object.keys(correctAnswers).forEach(questionName => {
+                    const selectedAnswer = document.querySelector(`input[name="${questionName}"]:checked`);
+                    const questionElement = document.querySelector(`[data-question="${questionName}"]`);
+                    const allOptions = questionElement.querySelectorAll(`input[type="radio"]`);
+                    const explanationEl = questionElement.querySelector('.explanation');
+                    
+                    // Prüfen ob alle Fragen beantwortet wurden
+                    if (!selectedAnswer) {
+                        allAnswered = false;
+                        questionElement.style.borderColor = 'red';
+                        return;
+                    } else {
+                        questionElement.style.borderColor = '';
+                    }
+                    
+                    // Alle Optionen der aktuellen Frage
+                    allOptions.forEach(option => {
+                        const optionElement = option.parentElement;
+                        optionElement.classList.remove('correct', 'incorrect');
+                        
+                        // Richtige Antwort markieren
+                        if (option.value === correctAnswers[questionName]) {
+                            optionElement.classList.add('correct');
+                        }
+                        
+                        // Falsche Antwort markieren (wenn ausgewählt)
+                        if (option === selectedAnswer && option.value !== correctAnswers[questionName]) {
+                            optionElement.classList.add('incorrect');
+                        }
+                    });
+                    
+                    // Erklärung anzeigen
+                    explanationEl.classList.add('show');
+                    
+                    // Punkte zählen
+                    if (selectedAnswer.value === correctAnswers[questionName]) {
+                        score++;
+                    }
+                });
+                
+                if (allAnswered) {
+                    // Ergebnis anzeigen
+                    showResult(score, total);
+                } else {
+                    // Hinweis anzeigen
+                    resultDiv.textContent = "Bitte beantworte alle Fragen!";
+                    resultDiv.className = "result show incorrect";
+                }
+            }
+            
+            function showResult(score, total) {
+                const percentage = Math.round((score / total) * 100);
+                
+                let message = `Du hast ${score} von ${total} Fragen richtig beantwortet (${percentage}%)`;
+                let resultClass = '';
+                
+                if (percentage >= 80) {
+                    message += " - Ausgezeichnet! 🎉";
+                    resultClass = 'correct';
+                } else if (percentage >= 60) {
+                    message += " - Gut gemacht! 👍";
+                    resultClass = 'correct';
+                } else {
+                    message += " - Noch etwas Übung nötig! 💪";
+                    resultClass = 'incorrect';
+                }
+                
+                resultDiv.textContent = message;
+                resultDiv.className = `result show ${resultClass}`;
+                
+                // Alle Eingaben deaktivieren nach der Überprüfung
+                document.querySelectorAll('input[type="radio"]').forEach(input => {
+                    input.disabled = true;
+                });
+                
+                checkBtn.disabled = true;
+            }
+            
+            function resetQuiz() {
+                // Alle Radio-Buttons zurücksetzen
+                document.querySelectorAll('input[type="radio"]').forEach(input => {
+                    input.checked = false;
+                    input.disabled = false;
+                });
+                
+                // Alle Markierungen entfernen
+                document.querySelectorAll('.option').forEach(option => {
+                    option.classList.remove('correct', 'incorrect');
+                });
+                
+                // Erklärungen verstecken
+                document.querySelectorAll('.explanation').forEach(explanation => {
+                    explanation.classList.remove('show');
+                });
+                
+                // Ergebnis verstecken
+                resultDiv.className = "result";
+                
+                // Fortschrittsbalken zurücksetzen
+                progressBar.style.width = '0%';
+                progressBar.parentElement.setAttribute('aria-valuenow', 0);
+                
+                // Fragen-Hervorhebungen entfernen
+                questions.forEach(question => {
+                    question.style.borderColor = '';
+                });
+                
+                // Check-Button wieder aktivieren
+                checkBtn.disabled = false;
+                
+                // Fokus auf erste Frage setzen
+                document.querySelector('.question input').focus();
+            }
+            
+            // Initialer Fortschritt
+            updateProgress();
 
+            function provideImmediateFeedback() {
+                options.forEach(option => {
+                    option.addEventListener('click', () => {
+                        const isCorrect = option.querySelector('input').value === correctAnswers[currentQuestion];
+                        showFeedback(option, isCorrect);
+                        
+                        // Kurze Verzögerung vor dem Weitergehen
+                        setTimeout(() => {
+                            if (autoAdvance) goToNextQuestion();
+                        }, 1500);
+                    });
+                });
+            }
+
+            // Timer mit visueller Anzeige
+            function startQuestionTimer(seconds) {
+                const timerElement = document.querySelector('.timer');
+                timerElement.style.display = 'block';
+                
+                let timeLeft = seconds;
+                const timerInterval = setInterval(() => {
+                    timeLeft--;
+                    const percent = (timeLeft / seconds) * 100;
+                    timerElement.style.width = `${percent}%`;
+                    
+                    if (timeLeft <= 0) {
+                        clearInterval(timerInterval);
+                        // Zeitablauf-Aktion
+                    }
+                }, 1000);
+            }
+
+            // Beispiel für Theme-Umschaltung
+            const themeToggle = document.getElementById('theme-toggle');
+            themeToggle.addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+                localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+            });
+        });
+    </script>
 </body>
 </html>
